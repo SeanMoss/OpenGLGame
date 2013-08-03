@@ -3,7 +3,7 @@
 
 ModelMesh::ModelMesh(const char* objpath)
 {
-	canDraw = OBJLoader::LoadObj(objpath, vertexData, uvData, normalData);
+	canDraw = OBJLoader::LoadObj(objpath, vertexData, uvData, normalData, &numFaces);
 
 	if (!canDraw)
 		fprintf(stderr, "Could not load .obj %s into ModelMesh. This object will not render.", objpath);
@@ -51,4 +51,9 @@ void ModelMesh::Render()
 	glDrawArrays(GL_TRIANGLES, 0, vertexData.size());
 
 	glBindVertexArray(0);
+}
+
+unsigned int ModelMesh::GetNumFaces()
+{
+	return numFaces;
 }

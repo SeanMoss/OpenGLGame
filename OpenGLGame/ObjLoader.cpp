@@ -14,7 +14,7 @@
 // - More secure. Change another line and you can inject code.
 // - Loading from memory, stream, etc
 
-bool OBJLoader::LoadObj(const char* path, std::vector<glm::vec3>& out_vertices, std::vector<glm::vec2>& out_uvs, std::vector<glm::vec3>& out_normals)
+bool OBJLoader::LoadObj(const char* path, std::vector<glm::vec3>& out_vertices, std::vector<glm::vec2>& out_uvs, std::vector<glm::vec3>& out_normals, unsigned int* numFaces)
 {
 	printf("Loading OBJ file %s...\n", path);
 
@@ -70,6 +70,7 @@ bool OBJLoader::LoadObj(const char* path, std::vector<glm::vec3>& out_vertices, 
 			normalIndices.push_back(normalIndex[0]);
 			normalIndices.push_back(normalIndex[1]);
 			normalIndices.push_back(normalIndex[2]);
+			numFaces++;
 		}else{
 			// Probably a comment, eat up the rest of the line
 			char stupidBuffer[1000];

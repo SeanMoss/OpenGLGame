@@ -31,7 +31,7 @@ ShaderProgram::ShaderProgram(const char* vertPath, const char* fragPath)
 
 ShaderProgram::~ShaderProgram()
 {
-	
+	glDeleteProgram(GetProgramID());
 }
 
 GLuint ShaderProgram::GetProgramID()
@@ -351,6 +351,12 @@ void ShaderProgram::UniformMat4(string key, GLsizei size, GLboolean transpose, m
 
 void ShaderProgram::SetActive(ShaderProgram* program)
 {
+	if (!program)
+	{
+		glUseProgram(0);
+		return;
+	}
+
 	if (activeProgram && activeProgram->programID != program->programID)
 	{
 		activeProgram->active = false;

@@ -7,11 +7,6 @@ glm::mat4 viewMatrix;
 
 GLFWwindow* window;
 
-void SetActiveWindow(GLFWwindow* newWindow)
-{
-	window = newWindow;
-}
-
 glm::mat4 getProjectionMatrix()
 {
 	return projectionMatrix;
@@ -88,11 +83,11 @@ void ComputeMatricesFromInputs()
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 	projectionMatrix = glm::perspective(FoV, 4.0f / 3.0f, 0.1f, 100.0f);
 	// Camera matrix
-	viewMatrix       = glm::lookAt(
-								position,           // Camera is here
-								position+direction, // and looks here : at the same position, plus "direction"
-								up                  // Head is up (set to 0,-1,0 to look upside-down)
-						   );
+	viewMatrix = glm::lookAt(
+					position,           // Camera is here
+					position+direction, // and looks here : at the same position, plus "direction"
+					up                  // Head is up (set to 0,-1,0 to look upside-down)
+				);
 
 	// For the next frame, the "last time" will be "now"
 	lastTime = currentTime;
@@ -100,5 +95,11 @@ void ComputeMatricesFromInputs()
 
 void ScrollCallback(GLFWwindow* window, double x, double y)
 {
-	lastMouseWheel = x;
+	lastMouseWheel = (float)x;
+}
+
+void SetActiveWindow(GLFWwindow* newWindow)
+{
+	window = newWindow;
+	glfwSetScrollCallback(window, ScrollCallback);
 }

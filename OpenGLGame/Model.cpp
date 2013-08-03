@@ -7,10 +7,6 @@ Model::Model(const char* objpath)
 	modelMesh = new ModelMesh(objpath);
 	textureID = 0;
 	oMesh = true;
-	position = vec3(0, 0, 0);
-	pitch = 0;
-	yaw = 0;
-	roll = 0;
 }
 
 Model::Model(ModelMesh* mesh)
@@ -18,10 +14,6 @@ Model::Model(ModelMesh* mesh)
 	modelMesh = mesh;
 	textureID = 0;
 	oMesh = false;
-	position = vec3(0, 0, 0);
-	pitch = 0;
-	yaw = 0;
-	roll = 0;
 }
 
 Model::~Model()
@@ -30,7 +22,7 @@ Model::~Model()
 		delete modelMesh;
 }
 
-void Model::Render(ShaderProgram* shader)
+void Model::Render(ShaderProgram* shader, glm::vec3 position, float pitch, float yaw, float roll)
 {
 	ShaderProgram::SetActive(shader);
 
@@ -51,49 +43,4 @@ void Model::Render(ShaderProgram* shader)
 void Model::UseTexture(GLuint id)
 {
 	textureID = id;
-}
-
-void Model::SetPosition(glm::vec3 pos)
-{
-	position = pos;
-}
-
-void Model::SetPosition(float x, float y, float z)
-{
-	position = vec3(x, y, z);
-}
-
-glm::vec3 Model::GetPosition()
-{
-	return position;
-}
-
-void Model::SetPitch(float newPitch)
-{
-	pitch = newPitch;
-}
-
-float Model::GetPitch()
-{
-	return pitch;
-}
-
-void Model::SetYaw(float newYaw)
-{
-	yaw = newYaw;
-}
-
-float Model::GetYaw()
-{
-	return yaw;
-}
-
-void Model::SetRoll(float newRoll)
-{
-	roll = newRoll;
-}
-
-float Model::GetRoll()
-{
-	return roll;
 }

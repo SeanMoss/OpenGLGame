@@ -16,12 +16,14 @@ private:
 	std::vector<glm::vec3> vertexData;
 	std::vector<glm::vec2> uvData;
 	std::vector<glm::vec3> normalData;
+	unsigned int numFaces;
 
 public:
 	ModelMesh(const char* objpath);
 	~ModelMesh();
 
 	void Render();
+	unsigned int GetNumFaces();
 };
 
 #endif
