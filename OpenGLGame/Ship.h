@@ -6,14 +6,13 @@
 #define _SHIP_H_
 
 #include "SpaceObject.h"
-#include <math.h>
 
 typedef struct
 {
-	float maxSpeed;
-	float maxAcceleration;
-	float maxTurnRate;
-	float maxTurnAcceleration;
+	float maxSpeed; //In m/s
+	float maxAcceleration; //In m/s
+	float maxTurnRate; //In deg/s
+	float maxTurnAcceleration; //In deg/s
 	//float maxHitPoints;
 	//float maxArmor;
 	//float maxShields;

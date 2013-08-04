@@ -38,10 +38,10 @@ int main()
 	ShaderProgram* shader = new ShaderProgram("Basic3D.vert", "Basic3D.frag");
 	GLuint uvmapId = LoadSOILTexture("uvmap.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y, true);
 	ShipInfo sinfo;
-	sinfo.maxSpeed = 0.01f;
-	sinfo.maxAcceleration = 0.0005f;
-	sinfo.maxTurnRate = 0.1f;
-	sinfo.maxTurnAcceleration = 0.001f;
+	sinfo.maxSpeed = 0.5f;
+	sinfo.maxAcceleration = 0.1f;
+	sinfo.maxTurnRate = 3.0f;
+	sinfo.maxTurnAcceleration = 1.5f;
 	Ship* ship = new Ship(sinfo);
 	ship->UseTexture(uvmapId);
 	ship->UseModel(new Model("suzanne.obj"));

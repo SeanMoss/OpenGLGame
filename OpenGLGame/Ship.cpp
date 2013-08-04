@@ -65,14 +65,14 @@ void Ship::Update(float seconds)
 
 		if (abs(dHeading) > 0.01f)
 		{
-			if (abs(dHeading) < maxTurnRate)
+			if (abs(dHeading) < (maxTurnRate * seconds))
 				heading += dHeading;
 			else
 			{
 				if(dHeading >= 0.0f)
-					heading += maxTurnRate; 
+					heading += maxTurnRate * seconds; 
 				else
-					heading -= maxTurnRate;
+					heading -= maxTurnRate * seconds;
 			}
 		}
 
@@ -80,26 +80,28 @@ void Ship::Update(float seconds)
 		vec4 toMove = direction * vec4(0, 0, 1, 1);
 
 		//TODO: NEEDS ADJUSTMENT FOR SIZE OF SHIP, ECT.
-		float angleTolerance = glm::min(70.0f, distToTarget * 5.0f); //Angle it needs to turn before it stops moving while turning
+		float angleTolerance = glm::min(70.0f, distToTarget * 3.0f); //Angle it needs to turn before it stops moving while turning
 		if (abs(dHeading) > angleTolerance) //If the ship needs to turn a lot, let it turn before accelerating
 		{
-			velocity -= maxAcceleration;
+			velocity -= maxAcceleration * seconds;
+			if (velocity < (maxSpeed/8.0f))
+				velocity = (maxSpeed/8.0f);
 		}
 		else
 		{
 			if (velocity < maxSpeed)
 			{
-				if ((velocity + maxAcceleration) > maxSpeed)
+				if ((velocity + maxAcceleration * seconds) > maxSpeed)
 					velocity = maxSpeed;
 				else
-					velocity += maxAcceleration;
+					velocity += maxAcceleration * seconds;
 			}
 		}
 
 		if (velocity < 0.0f) //No moving backwards
 			velocity = 0.0f;
 
-		position += vec3(toMove) * velocity;
+		position += vec3(toMove) * velocity * seconds;
 	}
 
 	position.y = 0;
