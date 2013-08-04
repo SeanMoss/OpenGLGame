@@ -38,20 +38,19 @@ private:
 	//bool friendly;
 	//Variables
 	float velocity;
-	float pitchRate;
-	float yawRate;
+	float turnRate;
 	float rollRate;
-	glm::vec3 destination;
+	glm::vec2 destination;
 
 public:
 	Ship(ShipInfo info);
 	~Ship();
 
-	void SetDestination(vec3 dest);
-	vec3 GetDestination();
+	void SetDestination(vec2 dest);
+	vec2 GetDestination();
 	float GetVelocity();
 
-	virtual void Update();
+	virtual void Update(float seconds);
 	virtual void Render(ShaderProgram *shader);
 };
 

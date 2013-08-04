@@ -81,7 +81,7 @@ void ComputeMatricesFromInputs()
 	float FoV = initialFoV - 5 * lastMouseWheel;
 
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	projectionMatrix = glm::perspective(FoV, 4.0f / 3.0f, 0.1f, 100.0f);
+	projectionMatrix = glm::perspective(FoV, 4.0f / 3.0f, 0.1f, 1000.0f);
 	// Camera matrix
 	viewMatrix = glm::lookAt(
 					position,           // Camera is here

@@ -3,37 +3,22 @@
 SpaceObject::SpaceObject()
 {
 	model = NULL;
-	position = vec3(0, 0, 0);
-	pitch = 0;
-	yaw = 0;
+	position = vec3(0);
+	heading = 0;
 	roll = 0;
 }
 
 SpaceObject::SpaceObject(Model* model)
 {
 	this->model = model;
-	position = vec3(0, 0, 0);
-	pitch = 0;
-	yaw = 0;
+	position = vec3(0);
+	heading = 0;
 	roll = 0;
 }
 
 SpaceObject::~SpaceObject()
 {
 
-}
-
-float SpaceObject::signedAngle(vec2 a, vec2 b)
-{
-	vec2 an = glm::normalize(a);
-	vec2 bn = glm::normalize(b);
-
-	float angle = glm::acos(glm::dot(an, bn));
-
-	if (glm::cross(vec3(an, 0.0f), vec3(bn, 0.0f)).z < 0.0f)
-		angle = -angle;
-
-	return angle;
 }
 
 void SpaceObject::UseModel(Model* model)
@@ -47,39 +32,29 @@ void SpaceObject::UseTexture(GLuint texId)
 		model->UseTexture(texId);
 }
 
-void SpaceObject::SetPosition(glm::vec3 pos)
+void SpaceObject::SetPosition(glm::vec2 pos)
 {
-	position = pos;
+	position = vec3(pos.x, 0.0f, pos.y);
 }
 
-void SpaceObject::SetPosition(float x, float y, float z)
+void SpaceObject::SetPosition(float x, float z)
 {
-	position = glm::vec3(x, y, z);
+	position = glm::vec3(x, 0.0f, z);
 }
 
-glm::vec3 SpaceObject::GetPosition()
+glm::vec2 SpaceObject::GetPosition()
 {
-	return position;
+	return vec2(position.x, position.z);
 }
 
-void SpaceObject::SetPitch(float newPitch)
+void SpaceObject::SetHeading(float newHeading)
 {
-	pitch = newPitch;
+	heading = newHeading;
 }
 
-float SpaceObject::GetPitch()
+float SpaceObject::GetHeading()
 {
-	return pitch;
-}
-
-void SpaceObject::SetYaw(float newYaw)
-{
-	yaw = newYaw;
-}
-
-float SpaceObject::GetYaw()
-{
-	return yaw;
+	return heading;
 }
 
 void SpaceObject::SetRoll(float newRoll)
@@ -92,9 +67,9 @@ float SpaceObject::GetRoll()
 	return roll;
 }
 
-void SpaceObject::Update()
+void SpaceObject::Update(float seconds)
 {
-
+	
 }
 
 void SpaceObject::Render(ShaderProgram* shader)
@@ -102,5 +77,5 @@ void SpaceObject::Render(ShaderProgram* shader)
 	if (model == NULL)
 		return;
 
-	model->Render(shader, position, pitch, yaw, roll);
+	model->Render(shader, position, 0.0f, heading, roll);
 }

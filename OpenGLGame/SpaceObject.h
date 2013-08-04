@@ -19,10 +19,8 @@ private:
 	Model* model;
 
 protected:
-	float signedAngle(vec2 a, vec2 b);
 	glm::vec3 position;
-	float pitch;
-	float yaw;
+	float heading;
 	float roll;
 
 public:
@@ -33,17 +31,15 @@ public:
 	void UseModel(Model* model);
 	void UseTexture(GLuint texId);
 
-	void SetPosition(glm::vec3 pos);
-	void SetPosition(float x, float y, float z);
-	glm::vec3 GetPosition();
-	void SetPitch(float newPitch);
-	float GetPitch();
-	void SetYaw(float newYaw);
-	float GetYaw();
+	void SetPosition(glm::vec2 pos);
+	void SetPosition(float x, float z);
+	glm::vec2 GetPosition();
+	void SetHeading(float newYaw);
+	float GetHeading();
 	void SetRoll(float newRoll);
 	float GetRoll();
 
-	virtual void Update();
+	virtual void Update(float seconds);
 
 	virtual void Render(ShaderProgram* shader);
 };

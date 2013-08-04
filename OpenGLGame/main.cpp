@@ -47,33 +47,35 @@ int main()
 	ship->UseModel(new Model("suzanne.obj"));
 
 	float oldVelocity = 0;
+	double lastTime = 0.0;
 	while(!glfwWindowShouldClose(window))
 	{
+		double currentTime = glfwGetTime();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		ComputeMatricesFromInputs();
 
-		ship->Update();
+		ship->Update((float)(currentTime - lastTime));
 		ship->Render(shader);
 
 		if(glfwGetKey(window, GLFW_KEY_1))
 		{
-			ship->SetDestination(vec3(10, 0, 10));
+			ship->SetDestination(vec2(10, 10));
 		}
 		else if(glfwGetKey(window, GLFW_KEY_2))
 		{
-			ship->SetDestination(vec3(5, 11, 7));
+			ship->SetDestination(vec2(5, 7));
 		}
 		else if(glfwGetKey(window, GLFW_KEY_3))
 		{
-			ship->SetDestination(vec3(-3, -1, 14));
+			ship->SetDestination(vec2(-3, 14));
 		}
 		else if(glfwGetKey(window, GLFW_KEY_ENTER))
 		{
-			ship->SetDestination(vec3(0, 0, 0));
+			ship->SetDestination(vec2(0, 0));
 		}
 
-		std::cout << "Yaw: " << ship->GetYaw() << "\tPitch: " << ship->GetPitch() << "\tVelocity: " << ship->GetVelocity() << "\tAcceleration: " << ship->GetVelocity() - oldVelocity << std::endl;
-		std::cout << "Position: " << ship->GetPosition().x << "\t" << ship->GetPosition().y << "\t" << ship->GetPosition().z << std::endl;
+		std::cout << "Heading: " << ship->GetHeading() << "\tRoll: " << ship->GetRoll() << "\tVelocity: " << ship->GetVelocity() << "\tAcceleration: " << ship->GetVelocity() - oldVelocity << std::endl;
+		std::cout << "Position: " << ship->GetPosition().x << "\t" << ship->GetPosition().y << std::endl;
 		oldVelocity = ship->GetVelocity();
 
 		if(glfwGetKey(window, GLFW_KEY_ESCAPE))
@@ -81,6 +83,7 @@ int main()
 
 		glfwPollEvents();
 		glfwSwapBuffers(window);
+		lastTime = currentTime;
 	}
 
 	glfwTerminate();
