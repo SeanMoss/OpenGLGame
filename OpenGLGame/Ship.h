@@ -48,6 +48,7 @@ public:
 	void SetDestination(vec2 dest);
 	vec2 GetDestination();
 	float GetVelocity();
+	void Stop();
 
 	virtual void Update(float seconds);
 	virtual void Render(ShaderProgram *shader);

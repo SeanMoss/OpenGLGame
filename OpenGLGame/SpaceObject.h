@@ -22,6 +22,7 @@ protected:
 	glm::vec3 position;
 	float heading;
 	float roll;
+	float scale;
 
 public:
 	SpaceObject();
@@ -38,6 +39,8 @@ public:
 	float GetHeading();
 	void SetRoll(float newRoll);
 	float GetRoll();
+	void SetScale(float newScale);
+	float GetScale();
 
 	virtual void Update(float seconds);
 

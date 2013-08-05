@@ -1,5 +1,27 @@
 #include "ModelMesh.h"
 #include "Controls.h"
+#include <iostream>
+#include <map>
+
+static std::map<std::string, ModelMesh*> meshCache;
+
+ModelMesh* ModelMesh::GetMesh(const char* path)
+{
+	bool contains = (meshCache.find(string(path)) != meshCache.end());
+
+	if (contains)
+	{
+		cout << "Mesh " << path << " already loaded. Using pre-existing mesh." << endl;
+		return meshCache[string(path)];
+	}
+	else
+	{
+		cout << "Loading new mesh " << path << " into memory." << endl;
+		ModelMesh* mesh = new ModelMesh(path);
+		meshCache[string(path)] = mesh;
+		return mesh;
+	}
+}
 
 ModelMesh::ModelMesh(const char* objpath)
 {
@@ -32,6 +54,8 @@ ModelMesh::ModelMesh(const char* objpath)
 		glEnableVertexAttribArray(2);
 
 		glBindVertexArray(0);
+
+		cout << "Size of model (Mb): " << ((vertexData.size() * sizeof(glm::vec3) + uvData.size() * sizeof(glm::vec2) + normalData.size() * sizeof(glm::vec3))/1048576.0f) << endl;
 	}
 }
 

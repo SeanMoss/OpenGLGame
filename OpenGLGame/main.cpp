@@ -2,9 +2,13 @@
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
 #include "Ship.h"
-#include "Controls.h"
+#include "Camera.h"
 #include "TextureLoader.h"
 #include <glm\gtx\vector_angle.hpp>
+
+int monitorWidth, monitorHeight;
+bool fullScreen = true;
+Camera* camera;
 
 int main()
 {
@@ -14,14 +18,14 @@ int main()
 	}
 	GLFWwindow* window;
 	glfwWindowHint(GLFW_SAMPLES, 4);
-	window = glfwCreateWindow(1024, 768, "Ship Game", NULL, NULL);
+	Camera::GetBestMonitorSize(&monitorWidth, &monitorHeight);
+	window = glfwCreateWindow(monitorWidth, monitorHeight, "Ship Game", fullScreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
 	if (!window)
 	{
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
 	glfwMakeContextCurrent(window);
-	SetActiveWindow(window);
 
 	if (glewInit() != GLEW_OK)
 	{
@@ -29,57 +33,82 @@ int main()
 		exit(EXIT_FAILURE);
 	}
 
-	glfwSetCursorPos(window, 1024/2, 768/2);
+	glfwSetCursorPos(window, monitorWidth/2, monitorHeight/2);
 	glClearColor(0.0f, 0.0f, 0.3f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
 
-	ShaderProgram* shader = new ShaderProgram("Basic3D.vert", "Basic3D.frag");
+	camera = new FreeCamera(window, vec3(0, 0, 10), 0, 180);
+
+	ShaderProgram* shader = new ShaderProgram("TextureOnly.vert", "TextureOnly.frag");
 	GLuint uvmapId = LoadSOILTexture("uvmap.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y, true);
+	GLuint pMap = LoadSOILTexture("flatearth.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y, true);
 	ShipInfo sinfo;
 	sinfo.maxSpeed = 0.5f;
 	sinfo.maxAcceleration = 0.1f;
 	sinfo.maxTurnRate = 3.0f;
 	sinfo.maxTurnAcceleration = 1.5f;
 	Ship* ship = new Ship(sinfo);
-	ship->UseTexture(uvmapId);
 	ship->UseModel(new Model("suzanne.obj"));
+	ship->UseTexture(uvmapId);
+	Ship* ship2 = new Ship(sinfo);
+	ship2->UseModel(new Model("suzanne.obj"));
+	ship2->UseTexture(uvmapId);
+	ship2->SetPosition(-5.0f, 0.0f);
+	ship->Stop();
+	ship2->Stop();
 
-	float oldVelocity = 0;
+	ShipInfo pinfo;
+	pinfo.maxSpeed = 0;
+	pinfo.maxAcceleration = 0;
+	pinfo.maxTurnAcceleration = 0;
+	pinfo.maxTurnRate = 0;
+	Ship* planet = new Ship(pinfo);
+	planet->UseModel(new Model("sphere.obj"));
+	planet->UseTexture(pMap);
+	planet->SetPosition(6400, 0);//R:6367.5 d:12735
+	planet->SetScale(6000.f);
+	planet->Stop();
+
 	double lastTime = 0.0;
 	while(!glfwWindowShouldClose(window))
 	{
 		double currentTime = glfwGetTime();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		ComputeMatricesFromInputs();
+		camera->Update((float)(currentTime - lastTime));
 
 		ship->Update((float)(currentTime - lastTime));
 		ship->Render(shader);
+		ship2->Update((float)(currentTime - lastTime));
+		ship2->Render(shader);
+		planet->Render(shader);
 
 		if(glfwGetKey(window, GLFW_KEY_1))
 		{
 			ship->SetDestination(vec2(10, 10));
+			ship2->SetDestination(vec2(10, 10));
 		}
 		else if(glfwGetKey(window, GLFW_KEY_2))
 		{
 			ship->SetDestination(vec2(5, 7));
+			ship2->SetDestination(vec2(5, 7));
 		}
 		else if(glfwGetKey(window, GLFW_KEY_3))
 		{
 			ship->SetDestination(vec2(-3, 14));
+			ship2->SetDestination(vec2(-3, 14));
 		}
 		else if(glfwGetKey(window, GLFW_KEY_ENTER))
 		{
 			ship->SetDestination(vec2(0, 0));
+			ship2->SetDestination(vec2(-5, 0));
 		}
-
-		std::cout << "Heading: " << ship->GetHeading() << "\tRoll: " << ship->GetRoll() << "\tVelocity: " << ship->GetVelocity() << "\tAcceleration: " << ship->GetVelocity() - oldVelocity << std::endl;
-		std::cout << "Position: " << ship->GetPosition().x << "\t" << ship->GetPosition().y << std::endl;
-		oldVelocity = ship->GetVelocity();
 
 		if(glfwGetKey(window, GLFW_KEY_ESCAPE))
 			glfwSetWindowShouldClose(window, GL_TRUE);
+
+		cout << "FPS: " << (1.0f/(currentTime - lastTime)) << endl;
 
 		glfwPollEvents();
 		glfwSwapBuffers(window);

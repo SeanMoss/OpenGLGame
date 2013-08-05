@@ -2,7 +2,7 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtx\vector_angle.hpp>
 #include <iostream>
-#include "Controls.h"
+#include "Camera.h"
 
 #define MAX_PITCH 25.0f
 
@@ -12,8 +12,6 @@ Ship::Ship(ShipInfo info)
 	maxAcceleration = info.maxAcceleration;
 	maxTurnRate = info.maxTurnRate;
 	maxTurnAcceleration = info.maxTurnAcceleration;
-
-	destination = vec2(position.x, position.z);
 
 	velocity = 0;
 	heading = 0;
@@ -39,6 +37,11 @@ glm::vec2 Ship::GetDestination()
 float Ship::GetVelocity()
 {
 	return velocity;
+}
+
+void Ship::Stop()
+{
+	destination = vec2(position.x, position.z);
 }
 
 void Ship::Update(float seconds)
@@ -111,31 +114,22 @@ void Ship::Render(ShaderProgram* shader)
 {
 	SpaceObject::Render(shader);
 
-	if (1 == _USE_DEBUG_)
-	{
-		mat4 proj = getProjectionMatrix();
-		mat4 view = getViewMatrix();
-		mat4 MVP = proj * view * translate(mat4(1.0f), vec3(0, 0, 0));
+#ifdef _DEBUG
+	mat4 proj = Camera::GetActiveCamera()->GetProjectionMatrix();
+	mat4 view = Camera::GetActiveCamera()->GetViewMatrix();
+	mat4 MVP = proj * view * translate(mat4(1.0f), vec3(0, 0, 0));
 
-		shader->UniformMat4("MVP", 1, GL_FALSE, MVP);
+	shader->UniformMat4("MVP", 1, GL_FALSE, MVP);
+	glBindTexture(GL_TEXTURE_2D, 0);
 
-		glLineWidth(3);
-		glBegin(GL_LINES);
-		glColor3f(1.0f, 0.0f, 0.0f);
-		glVertex3f(position.x, 0.0f, position.z);
-		glVertex3f(destination.x, 0.0f, destination.y);
-		glEnd(); 
-		glLineWidth(1);
-
-		glPointSize(10);
-		glBegin(GL_POINTS);
-		glVertex3f(0.0f, 0.0f, 0.0f);
-		glVertex3f(10.0f, 0.0f, 10.0f);
-		glVertex3f(5.0f, 0.0f, 7.0f);
-		glVertex3f(-3.0f, 0.0f, 14.0f);
-		glEnd();
-		glPointSize(1);
-	}
+	glLineWidth(3);
+	glBegin(GL_LINES);
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(position.x, 0.0f, position.z);
+	glVertex3f(destination.x, 0.0f, destination.y);
+	glEnd(); 
+	glLineWidth(1);
+#endif
 }
 
 //Old 3D pathfinding update

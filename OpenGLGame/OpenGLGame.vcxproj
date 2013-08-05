@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Controls.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Model.h" />
@@ -24,6 +25,7 @@
     <ClInclude Include="TextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Controls.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
@@ -45,6 +47,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
     </None>
+    <None Include="TextureOnly.frag" />
+    <None Include="TextureOnly.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{914882CB-91A4-496F-9DF4-6ED232F05E27}</ProjectGuid>
@@ -105,7 +109,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_USE_DEBUG_ 1</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\C++Libraries\OpenGL\glm-0.9.4.4\glm-0.9.4.4;C:\C++Libraries\OpenGL\glfw-3.0.1\include;C:\C++Libraries\OpenGL\glew-1.9.0\include;C:\C++Libraries\OpenGL\soil\Simple OpenGL Image Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>

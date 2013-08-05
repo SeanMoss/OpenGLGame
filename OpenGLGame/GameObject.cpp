@@ -57,7 +57,7 @@ GameObject::GameObject(unsigned int newId)
 
 GameObject::~GameObject()
 {
-
+	objectCache.erase(this->GetUniqueId());
 }
 
 unsigned int GameObject::GetUniqueId()

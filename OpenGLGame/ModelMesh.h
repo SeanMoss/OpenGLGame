@@ -9,6 +9,9 @@
 
 class ModelMesh
 {
+public:
+	static ModelMesh* GetMesh(const char* path);
+
 private:
 	bool canDraw; //If the model was loaded properly at initialization
 	GLuint vaoID;

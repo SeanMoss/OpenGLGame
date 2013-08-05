@@ -1,8 +1,6 @@
 #ifndef _GAME_OBJECT_H_
 #define _GAME_OBJECT_H_
 
-#define _USE_DEBUG_ 1
-
 class GameObject
 {
 private:

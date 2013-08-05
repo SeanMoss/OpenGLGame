@@ -1,4 +1,5 @@
 #include "SpaceObject.h"
+#include "Camera.h"
 
 SpaceObject::SpaceObject()
 {
@@ -6,6 +7,7 @@ SpaceObject::SpaceObject()
 	position = vec3(0);
 	heading = 0;
 	roll = 0;
+	scale = 1.0f;
 }
 
 SpaceObject::SpaceObject(Model* model)
@@ -14,6 +16,7 @@ SpaceObject::SpaceObject(Model* model)
 	position = vec3(0);
 	heading = 0;
 	roll = 0;
+	scale = 1.0f;
 }
 
 SpaceObject::~SpaceObject()
@@ -67,6 +70,16 @@ float SpaceObject::GetRoll()
 	return roll;
 }
 
+void SpaceObject::SetScale(float newScale)
+{
+	scale = newScale;
+}
+
+float SpaceObject::GetScale()
+{
+	return scale;
+}
+
 void SpaceObject::Update(float seconds)
 {
 	
@@ -77,5 +90,5 @@ void SpaceObject::Render(ShaderProgram* shader)
 	if (model == NULL)
 		return;
 
-	model->Render(shader, position, 0.0f, heading, roll);
+	model->Render(shader, position, 0.0f, heading, roll, scale);
 }
