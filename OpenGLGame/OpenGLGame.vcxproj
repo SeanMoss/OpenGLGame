@@ -90,13 +90,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\C++Libraries\OpenGL\glm-0.9.4.4\glm-0.9.4.4;C:\C++Libraries\OpenGL\glfw-3.0.1\include;C:\C++Libraries\OpenGL\glew-1.9.0\include;C:\C++Libraries\OpenGL\soil\Simple OpenGL Image Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\C++Libraries\OpenGL\Assimp\include;C:\C++Libraries\OpenGL\glm-0.9.4.4\glm-0.9.4.4;C:\C++Libraries\OpenGL\glfw-3.0.1\include;C:\C++Libraries\OpenGL\glew-1.9.0\include;C:\C++Libraries\OpenGL\soil\Simple OpenGL Image Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\C++Libraries\OpenGL\glfw-3.0.1\build\src\Debug;C:\C++Libraries\OpenGL\glew-1.9.0\lib;C:\C++Libraries\OpenGL\soil\Simple OpenGL Image Library\projects\VC9\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\C++Libraries\OpenGL\Assimp\lib\x86;C:\C++Libraries\OpenGL\assimp--3.0.1270-sdk\lib\assimp_debug-dll_win32;C:\C++Libraries\OpenGL\glfw-3.0.1\build\src\Debug;C:\C++Libraries\OpenGL\glew-1.9.0\lib;C:\C++Libraries\OpenGL\soil\Simple OpenGL Image Library\projects\VC9\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;SOIL.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -108,15 +108,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_USE_DEBUG_ 1</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\C++Libraries\OpenGL\glm-0.9.4.4\glm-0.9.4.4;C:\C++Libraries\OpenGL\glfw-3.0.1\include;C:\C++Libraries\OpenGL\glew-1.9.0\include;C:\C++Libraries\OpenGL\soil\Simple OpenGL Image Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\C++Libraries\OpenGL\Assimp\include;C:\C++Libraries\OpenGL\glm-0.9.4.4\glm-0.9.4.4;C:\C++Libraries\OpenGL\glfw-3.0.1\include;C:\C++Libraries\OpenGL\glew-1.9.0\include;C:\C++Libraries\OpenGL\soil\Simple OpenGL Image Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\C++Libraries\OpenGL\glfw-3.0.1\build\src\Release;C:\C++Libraries\OpenGL\glew-1.9.0\lib;C:\C++Libraries\OpenGL\soil\Simple OpenGL Image Library\projects\VC9\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\C++Libraries\OpenGL\Assimp\lib\x86;C:\C++Libraries\OpenGL\assimp--3.0.1270-sdk\lib\assimp_release-dll_win32;C:\C++Libraries\OpenGL\glfw-3.0.1\build\src\Release;C:\C++Libraries\OpenGL\glew-1.9.0\lib;C:\C++Libraries\OpenGL\soil\Simple OpenGL Image Library\projects\VC9\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;SOIL.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

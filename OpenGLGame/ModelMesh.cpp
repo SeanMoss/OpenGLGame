@@ -25,7 +25,7 @@ ModelMesh* ModelMesh::GetMesh(const char* path)
 
 ModelMesh::ModelMesh(const char* objpath)
 {
-	canDraw = OBJLoader::LoadObj(objpath, vertexData, uvData, normalData, &numFaces);
+	canDraw = OBJLoader::LoadModel(objpath, indexData, vertexData, uvData, normalData, &numFaces);
 
 	if (!canDraw)
 		fprintf(stderr, "Could not load .obj %s into ModelMesh. This object will not render.", objpath);
@@ -37,6 +37,7 @@ ModelMesh::ModelMesh(const char* objpath)
 		glBindVertexArray(vaoID);
 
 		glGenBuffers(3, &vboID[0]); //Create 3 VBOs, for verticies, uvs, and normals
+		glGenBuffers(1, &iboID); //Create an index buffer
 
 		glBindBuffer(GL_ARRAY_BUFFER, vboID[0]); //Bind vertex data
 		glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(glm::vec3), &vertexData[0], GL_STATIC_DRAW);
@@ -52,6 +53,9 @@ ModelMesh::ModelMesh(const char* objpath)
 		glBufferData(GL_ARRAY_BUFFER, normalData.size() * sizeof(glm::vec3), &normalData[0], GL_STATIC_DRAW); 
 		glEnableVertexAttribArray(2);
 		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size() * sizeof(unsigned short), &indexData[0], GL_STATIC_DRAW);
 
 		glBindVertexArray(0);
 
@@ -70,9 +74,11 @@ void ModelMesh::Render()
 	if(!canDraw)
 		return;
 
+	glEnable(GL_DEPTH_TEST);
 	glBindVertexArray(vaoID);
 
 	glDrawArrays(GL_TRIANGLES, 0, vertexData.size());
+	glDrawElements(GL_TRIANGLES, indexData.size() * sizeof(unsigned short), GL_UNSIGNED_SHORT, (void*)0); 
 
 	glBindVertexArray(0);
 }

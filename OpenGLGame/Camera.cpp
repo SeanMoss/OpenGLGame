@@ -11,6 +11,11 @@ const Camera* Camera::GetActiveCamera()
 	return playerCamera;
 }
 
+glm::vec3 Camera::ActiveCameraPosition()
+{
+	return playerCamera->GetPosition();
+}
+
 void Camera::GetBestMonitorSize(int* w, int* h)
 {
 	int count;

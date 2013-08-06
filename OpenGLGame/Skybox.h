@@ -9,12 +9,15 @@ private:
 	GLuint texture;
 	GLuint vaoID;
 	GLuint vboID;
-	GLint vertexLocation;
+	GLuint iboID;
+	float scale;
 
 public:
 	Skybox(const char* xp, const char* xn, const char* yp, const char* yn, const char* zp, const char* zn);
 	~Skybox();
 
+	void SetScale(float scale);
+	float GetScale();
 	void Render();
 };
 

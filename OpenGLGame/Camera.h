@@ -13,6 +13,7 @@ class Camera
 public:
 	static void GetBestMonitorSize(int* w, int* h);
 	static const Camera* GetActiveCamera();
+	static glm::vec3 ActiveCameraPosition();
 
 private:
 	int width, height;
@@ -37,6 +38,7 @@ public:
 	void SetDepth(float near, float far);
 	void GetDepth(float* near, float* far) const;
 
+	virtual glm::vec3 GetPosition() = 0;
 	virtual void Update(float elapsedSeconds) = 0;
 };
 
@@ -90,5 +92,11 @@ public:
 	float GetSpeed();
 
 	virtual void Update(float elapsedSeconds);
+};
+
+//A camera that points towards a position, and can be moved closer/further with the mouse wheel, and rotated around the target
+class ArcBallCamera : public Camera
+{
+
 };
 #endif

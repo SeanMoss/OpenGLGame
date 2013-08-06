@@ -16,9 +16,11 @@ private:
 	bool canDraw; //If the model was loaded properly at initialization
 	GLuint vaoID;
 	GLuint vboID[3];
-	std::vector<glm::vec3> vertexData;
+	GLuint iboID;
+	std::vector<glm::vec3> vertexData; //Pure vertex data
 	std::vector<glm::vec2> uvData;
 	std::vector<glm::vec3> normalData;
+	std::vector<unsigned short> indexData;
 	unsigned int numFaces;
 
 public:

@@ -37,7 +37,9 @@ int main()
 	glClearColor(0.0f, 0.0f, 0.3f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 
 	camera = new FreeCamera(window, vec3(0, 0, 10), 0, 180);
 
@@ -67,12 +69,12 @@ int main()
 	Ship* planet = new Ship(pinfo);
 	planet->UseModel(new Model("sphere.obj"));
 	planet->UseTexture(pMap);
-	planet->SetPosition(6400, 0);//R:6367.5 d:12735
-	planet->SetScale(6000.f);
+	planet->SetPosition(6500, 0);//R:6367.5 d:12735
+	planet->SetScale(6367.5f);
 	planet->Stop();
 
-	Skybox* sky = new Skybox("SkyMaps\basic_space_left2.png", "SkyMaps\basic_space_right1.png", "SkyMaps\basic_space_top3.png", 
-		"SkyMaps\basic_space_bottom4.png", "SkyMaps\basic_space_front5.png", "SkyMaps\basic_space_back6.png");
+	Skybox* sky = new Skybox("SkyMaps\\basic_space_left2.png", "SkyMaps\\basic_space_right1.png", "SkyMaps\\basic_space_top3.png", 
+		"SkyMaps\\basic_space_bottom4.png", "SkyMaps\\basic_space_back6.png", "SkyMaps\\basic_space_front5.png");
 
 	double lastTime = 0.0;
 	while(!glfwWindowShouldClose(window))
@@ -80,14 +82,14 @@ int main()
 		double currentTime = glfwGetTime();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		camera->Update((float)(currentTime - lastTime));
+		
+		sky->Render();
 
 		ship->Update((float)(currentTime - lastTime));
 		ship->Render(shader);
 		ship2->Update((float)(currentTime - lastTime));
 		ship2->Render(shader);
 		planet->Render(shader);
-
-		sky->Render();
 
 		if(glfwGetKey(window, GLFW_KEY_1))
 		{
