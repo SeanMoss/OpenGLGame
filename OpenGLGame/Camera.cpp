@@ -229,6 +229,16 @@ void FreeCamera::Update(float elapsedSeconds)
 	yaw += mouseSpeed * float(monx/2 - mx);
 	pitch += mouseSpeed * float(mony/2 - my);
 
+	if (pitch > 89.0f)
+		pitch = 89.0f;
+	else if (pitch < -89.0f)
+		pitch = -89.0f;
+
+	if (yaw > 360.0f)
+		yaw -= 360.0f;
+	else if (yaw < -360.0f)
+		yaw += 360.0f;
+
 	if (wheelFOV)
 	{
 		SetFOV(GetFOV() + -wheelSpeed * lastScroll);

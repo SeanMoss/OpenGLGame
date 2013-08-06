@@ -75,6 +75,9 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Input</Filter>
     </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ObjLoader.cpp">
@@ -113,19 +116,24 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Basic3D.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Basic3D.vert">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="TextureOnly.frag">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="TextureOnly.vert">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="cubemap.frag">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="cubemap.vert">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

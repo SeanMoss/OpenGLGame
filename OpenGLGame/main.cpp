@@ -4,7 +4,7 @@
 #include "Ship.h"
 #include "Camera.h"
 #include "TextureLoader.h"
-#include <glm\gtx\vector_angle.hpp>
+#include "Skybox.h"
 
 int monitorWidth, monitorHeight;
 bool fullScreen = true;
@@ -71,6 +71,9 @@ int main()
 	planet->SetScale(6000.f);
 	planet->Stop();
 
+	Skybox* sky = new Skybox("SkyMaps\basic_space_left2.png", "SkyMaps\basic_space_right1.png", "SkyMaps\basic_space_top3.png", 
+		"SkyMaps\basic_space_bottom4.png", "SkyMaps\basic_space_front5.png", "SkyMaps\basic_space_back6.png");
+
 	double lastTime = 0.0;
 	while(!glfwWindowShouldClose(window))
 	{
@@ -83,6 +86,8 @@ int main()
 		ship2->Update((float)(currentTime - lastTime));
 		ship2->Render(shader);
 		planet->Render(shader);
+
+		sky->Render();
 
 		if(glfwGetKey(window, GLFW_KEY_1))
 		{

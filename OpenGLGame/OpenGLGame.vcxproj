@@ -21,6 +21,7 @@
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="SpaceObject.h" />
     <ClInclude Include="TextureLoader.h" />
   </ItemGroup>
@@ -35,20 +36,17 @@
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="SpaceObject.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Basic3D.frag">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
-    </None>
-    <None Include="Basic3D.vert">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
-    </None>
     <None Include="TextureOnly.frag" />
     <None Include="TextureOnly.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="cubemap.frag" />
+    <Text Include="cubemap.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{914882CB-91A4-496F-9DF4-6ED232F05E27}</ProjectGuid>
