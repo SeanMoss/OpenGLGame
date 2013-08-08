@@ -12,11 +12,13 @@
 #include <glm\glm.hpp>
 #include "ShaderProgram.h"
 #include "Model.h"
+#include "Collision.h"
 
 class SpaceObject : public GameObject
 {
 private:
 	Model* model;
+	BoundingSphere* boundingSphere;
 
 protected:
 	glm::vec3 position;
@@ -41,6 +43,7 @@ public:
 	float GetRoll();
 	void SetScale(float newScale);
 	float GetScale();
+	const BoundingSphere* GetBoundingSphere();
 
 	virtual void Update(float seconds);
 

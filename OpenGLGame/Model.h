@@ -17,6 +17,8 @@ public:
 	Model(ModelMesh* mesh);
 	virtual ~Model();
 
+	const ModelMesh* GetMesh();
+
 	void Render(ShaderProgram* shader, glm::vec3 position, float pitch, float yaw, float roll, float scale);
 	void UseTexture(GLuint id);
 };

@@ -23,6 +23,43 @@ ModelMesh* ModelMesh::GetMesh(const char* path)
 	}
 }
 
+void ModelMesh::TrasformSphere(BoundingSphere* sphere, const ModelMesh* mesh)
+{
+	float minX = 0, minY = 0, minZ = 0, maxX = 0, maxY = 0, maxZ = 0;
+
+	std::vector<glm::vec3> verts = mesh->vertexData;
+
+	for (std::vector<glm::vec3>::iterator it = verts.begin(); it != verts.end(); ++it)
+	{
+		if (it->x > maxX)
+			maxX = it->x;
+		else if (it->x < minX)
+			minX = it->x;
+		if (it->y > maxY)
+			maxY = it->y;
+		else if (it->y < minY)
+			minY = it->y;
+		if (it->z > maxZ)
+			maxZ = it->z;
+		else if (it->z < minZ)
+			minZ = it->z;
+	}
+
+	minX = abs(minX);
+	minY = abs(minY);
+	minZ = abs(minZ);
+
+	float most = 0;
+	most = glm::max(most, minX);
+	most = glm::max(most, minY);
+	most = glm::max(most, minZ);
+	most = glm::max(most, maxX);
+	most = glm::max(most, maxY);
+	most = glm::max(most, maxZ);
+
+	sphere->radius = most;
+}
+
 ModelMesh::ModelMesh(const char* objpath)
 {
 	canDraw = OBJLoader::LoadModel(objpath, indexData, vertexData, uvData, normalData, &numFaces);

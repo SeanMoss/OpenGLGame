@@ -6,11 +6,13 @@
 #include <glm\glm.hpp>
 #include "ShaderProgram.h"
 #include "ObjLoader.h"
+#include "Collision.h"
 
 class ModelMesh
 {
 public:
 	static ModelMesh* GetMesh(const char* path);
+	static void TrasformSphere(BoundingSphere*, const ModelMesh*);
 
 private:
 	bool canDraw; //If the model was loaded properly at initialization

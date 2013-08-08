@@ -46,6 +46,8 @@ void Ship::Stop()
 
 void Ship::Update(float seconds)
 {
+	SpaceObject::Update(seconds);
+
 	using namespace glm;
 
 	vec3 target = vec3(destination.x, 0.0f, destination.y) - position;

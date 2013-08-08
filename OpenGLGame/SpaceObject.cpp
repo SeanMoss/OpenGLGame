@@ -1,5 +1,5 @@
-#include "SpaceObject.h"
 #include "Camera.h"
+#include "SpaceObject.h"
 
 SpaceObject::SpaceObject()
 {
@@ -8,6 +8,8 @@ SpaceObject::SpaceObject()
 	heading = 0;
 	roll = 0;
 	scale = 1.0f;
+
+	boundingSphere = new BoundingSphere(glm::vec3(0), 0.0f);
 }
 
 SpaceObject::SpaceObject(Model* model)
@@ -17,6 +19,9 @@ SpaceObject::SpaceObject(Model* model)
 	heading = 0;
 	roll = 0;
 	scale = 1.0f;
+
+	boundingSphere->position = position;
+	ModelMesh::TrasformSphere(boundingSphere, model->GetMesh());
 }
 
 SpaceObject::~SpaceObject()
@@ -80,9 +85,14 @@ float SpaceObject::GetScale()
 	return scale;
 }
 
+const BoundingSphere* SpaceObject::GetBoundingSphere()
+{
+	return boundingSphere;
+}
+
 void SpaceObject::Update(float seconds)
 {
-	
+	boundingSphere->position = this->position;
 }
 
 void SpaceObject::Render(ShaderProgram* shader)
@@ -91,4 +101,8 @@ void SpaceObject::Render(ShaderProgram* shader)
 		return;
 
 	model->Render(shader, position, 0.0f, heading, roll, scale);
+
+#ifdef _DEBUG
+
+#endif
 }

@@ -22,6 +22,11 @@ Model::~Model()
 		delete modelMesh;
 }
 
+const ModelMesh* Model::GetMesh()
+{
+	return modelMesh;
+}
+
 void Model::Render(ShaderProgram* shader, glm::vec3 position, float pitch, float yaw, float roll, float scale)
 {
 	ShaderProgram::SetActive(shader);
