@@ -1,6 +1,7 @@
 #ifndef _CAMERA_H_
 #define _CAMERA_H_
 
+#include "SpaceObject.h"
 #include <GLFW\glfw3.h>
 
 class Camera;
@@ -97,6 +98,53 @@ public:
 //A camera that points towards a position, and can be moved closer/further with the mouse wheel, and rotated around the target
 class ArcBallCamera : public Camera
 {
+private:
+	float yaw;
+	float pitch;
+	float pitchMax, pitchMin;
+	float distance;
+	float distanceMax, distanceMin;
+	glm::vec3 position;
+	bool lockToY; //Locks the y value of the target to the y-plane
 
+protected:
+	glm::vec3 target, targetLast;
+
+public:
+	bool useArrows; //If moving should be done by the arrows instead of WASD
+	bool keyRotate; //If the keys rotate the camera or break from target
+	float mouseSpeed; //The speed at which the mouse moves the camera
+	float wheelSpeed; //The speed at which the wheel changes the distance
+	float moveSpeed; //The modifier to which the target is moved
+
+public:
+	ArcBallCamera(GLFWwindow* window, glm::vec3 target, float yaw, float pitch, float pMin, float pMax, float distance, float dMin, float dMax);
+	virtual ~ArcBallCamera();
+
+	glm::vec3 GetTarget();
+	glm::vec3 GetPosition();
+	void ChangeDistance(float);
+	float GetDistance();
+	void Rotate(float, float);
+	float GetPitch();
+	float GetYaw();
+
+	virtual void Update(float elapsedSeconds);
+};
+
+//A camera that will update it's target as the target moves, acts like an arc ball camera
+class ObjectCamera : public ArcBallCamera
+{
+private:
+	SpaceObject* targetObject;
+
+public:
+	ObjectCamera(GLFWwindow* window, SpaceObject* target, float yaw, float pitch, float pMin, float pMax, float distance, float dMin, float dMax);
+	~ObjectCamera();
+
+	void SetTargetObject(SpaceObject*);
+	const SpaceObject* GetTargetObject();
+
+	virtual void Update(float elapsedSeconds);
 };
 #endif

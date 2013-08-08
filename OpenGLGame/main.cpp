@@ -41,8 +41,6 @@ int main()
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 
-	camera = new FreeCamera(window, vec3(0, 0, 10), 0, 180);
-
 	ShaderProgram* shader = new ShaderProgram("TextureOnly.vert", "TextureOnly.frag");
 	GLuint uvmapId = LoadSOILTexture("uvmap.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y, true);
 	GLuint pMap = LoadSOILTexture("flatearth.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y, true);
@@ -76,6 +74,8 @@ int main()
 	Skybox* sky = new Skybox("SkyMaps\\basic_space_left2.png", "SkyMaps\\basic_space_right1.png", "SkyMaps\\basic_space_top3.png", 
 		"SkyMaps\\basic_space_bottom4.png", "SkyMaps\\basic_space_back6.png", "SkyMaps\\basic_space_front5.png");
 
+	camera = new ObjectCamera(window, ship, 0.0f, -45.0f, -80.0f, 80.0f, 10.0f, 2.0f, 400000.0f);
+
 	double lastTime = 0.0;
 	while(!glfwWindowShouldClose(window))
 	{
@@ -85,32 +85,14 @@ int main()
 		
 		sky->Render();
 
+		if (glfwGetKey(window, GLFW_KEY_1))
+			ship->SetDestination(vec2(10, 10));
+
 		ship->Update((float)(currentTime - lastTime));
 		ship->Render(shader);
 		ship2->Update((float)(currentTime - lastTime));
 		ship2->Render(shader);
 		planet->Render(shader);
-
-		if(glfwGetKey(window, GLFW_KEY_1))
-		{
-			ship->SetDestination(vec2(10, 10));
-			ship2->SetDestination(vec2(10, 10));
-		}
-		else if(glfwGetKey(window, GLFW_KEY_2))
-		{
-			ship->SetDestination(vec2(5, 7));
-			ship2->SetDestination(vec2(5, 7));
-		}
-		else if(glfwGetKey(window, GLFW_KEY_3))
-		{
-			ship->SetDestination(vec2(-3, 14));
-			ship2->SetDestination(vec2(-3, 14));
-		}
-		else if(glfwGetKey(window, GLFW_KEY_ENTER))
-		{
-			ship->SetDestination(vec2(0, 0));
-			ship2->SetDestination(vec2(-5, 0));
-		}
 
 		if(glfwGetKey(window, GLFW_KEY_ESCAPE))
 			glfwSetWindowShouldClose(window, GL_TRUE);
