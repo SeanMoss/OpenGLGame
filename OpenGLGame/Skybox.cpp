@@ -3,6 +3,7 @@
 #include "Skybox.h"
 #include "Camera.h"
 #include <glm\gtc\matrix_transform.hpp>
+#include <iostream>
 
 #define C_TFR -1.0f,1.0f,1.0f
 #define C_TFL 1.0f,1.0f,1.0f
@@ -32,10 +33,14 @@ static const unsigned short indices[] =
 
 Skybox::Skybox(const char* xp, const char* xn, const char* yp, const char* yn, const char* zp, const char* zn)
 {
+	cout << glfwGetTime() << "\t Creating new skybox" << std::endl;
 	if (cubeMapShader == nullptr)
 		cubeMapShader = new ShaderProgram("cubemap.vert", "cubemap.frag");
+	cout << glfwGetTime() << "\t Loaded skybox program" << std::endl;
 
+	cout << glfwGetTime() << "\t Creating texture." << std::endl;
 	texture = SOIL_load_OGL_cubemap(xp, xn, yp, yn, zp, zn, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+	cout << glfwGetTime() << "\t Created sky texture." << std::endl;
 
 	glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -44,6 +49,8 @@ Skybox::Skybox(const char* xp, const char* xn, const char* yp, const char* yn, c
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+
+	cout << glfwGetTime() << "\t Set sky texture attribs." << std::endl;
 
 	glGenVertexArrays(1, &vaoID);
 	glBindVertexArray(vaoID);
@@ -56,6 +63,8 @@ Skybox::Skybox(const char* xp, const char* xn, const char* yp, const char* yn, c
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 	glBindVertexArray(0);
+
+	cout << glfwGetTime() << "\t Sent skybox data to graphics card." << std::endl;
 
 	scale = 1.0f;
 }

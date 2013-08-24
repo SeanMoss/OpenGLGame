@@ -15,6 +15,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Controls.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelMesh.h" />
     <ClInclude Include="ObjLoader.h" />
@@ -31,6 +32,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Controls.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelMesh.cpp" />

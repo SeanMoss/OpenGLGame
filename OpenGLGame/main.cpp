@@ -75,6 +75,7 @@ int main()
 		"SkyMaps\\basic_space_bottom4.png", "SkyMaps\\basic_space_back6.png", "SkyMaps\\basic_space_front5.png");
 
 	camera = new ObjectCamera(window, ship, 0.0f, -45.0f, -80.0f, 80.0f, 10.0f, 2.0f, 400000.0f);
+	//camera = new FreeCamera(window, vec3(0, 10, 0), 0.0f, 180.0f);
 
 	double lastTime = 0.0;
 	while(!glfwWindowShouldClose(window))
@@ -86,7 +87,12 @@ int main()
 		sky->Render();
 
 		if (glfwGetKey(window, GLFW_KEY_1))
+		{
 			ship->SetDestination(vec2(10, 10));
+			ship2->SetDestination(vec2(10, 10));
+		}
+		else if (glfwGetKey(window, GLFW_KEY_2))
+			ship->SetDestination(vec2(-3, 5));
 
 		ship->Update((float)(currentTime - lastTime));
 		ship->Render(shader);

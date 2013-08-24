@@ -16,9 +16,10 @@ ModelMesh* ModelMesh::GetMesh(const char* path)
 	}
 	else
 	{
-		cout << "Loading new mesh " << path << " into memory." << endl;
+		cout << glfwGetTime() << "\tLoading new mesh " << path << " into memory." << endl;
 		ModelMesh* mesh = new ModelMesh(path);
 		meshCache[string(path)] = mesh;
+		cout << glfwGetTime() << "New mesh loaded." << endl;
 		return mesh;
 	}
 }

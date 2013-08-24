@@ -44,7 +44,7 @@ Camera::Camera(GLFWwindow* window)
 	GetBestMonitorSize(&width, &height);
 
 	near = 0.1f;
-	far = 50000.0f;
+	far = 500000.0f;
 
 	fov = 45;
 
@@ -507,7 +507,7 @@ void ArcBallCamera::Update(float elapsedSeconds)
 
 void arcBallScrollCallback(GLFWwindow* window, double x, double y)
 {
-	activeArcBall->ChangeDistance(-y);
+	activeArcBall->ChangeDistance(-y * pow(activeArcBall->GetDistance(), 0.5f));
 }
 //=======================================================================================================
 
