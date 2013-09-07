@@ -6,6 +6,9 @@
 //================================================CAMERA=================================================
 static Camera* playerCamera;
 
+/**
+Gets the active camera.
+ */
 const Camera* Camera::GetActiveCamera()
 {
 	return playerCamera;
@@ -16,6 +19,11 @@ glm::vec3 Camera::ActiveCameraPosition()
 	return playerCamera->GetPosition();
 }
 
+/**
+Gets the highest available monitor size for the primary monitor.
+@param w The pointer to the int that will store the width.
+@param h The pointer to the int that will stroe the height.
+*/
 void Camera::GetBestMonitorSize(int* w, int* h)
 {
 	int count;
@@ -38,6 +46,14 @@ void Camera::GetBestMonitorSize(int* w, int* h)
 	//std::cout << "Using a resolution of " << *w << "," << *h << std::endl;
 }
 
+/**
+ * Constructor.
+ *
+ * @author	Sean
+ * @date	9/2/2013
+ *
+ * @param [in,out]	window	If non-null, the window.
+ */
 Camera::Camera(GLFWwindow* window)
 {
 	this->window = window;

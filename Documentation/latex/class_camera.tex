@@ -1,0 +1,95 @@
+\hypertarget{class_camera}{\section{Camera Class Reference}
+\label{class_camera}\index{Camera@{Camera}}
+}
+
+
+Inheritance diagram for Camera\-:
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_camera_a1fca12b79161a5de5c88e75e859f9ce6}{{\bfseries Camera} (G\-L\-F\-Wwindow $\ast$window)}\label{class_camera_a1fca12b79161a5de5c88e75e859f9ce6}
+
+\item 
+\hypertarget{class_camera_a739bf4fedace8b3d12868d19726df832}{glm\-::mat4 {\bfseries Get\-View\-Matrix} () const }\label{class_camera_a739bf4fedace8b3d12868d19726df832}
+
+\item 
+\hypertarget{class_camera_a497efa3119ab4ae679d29badf6f25682}{glm\-::mat4 {\bfseries Get\-Projection\-Matrix} () const }\label{class_camera_a497efa3119ab4ae679d29badf6f25682}
+
+\item 
+\hypertarget{class_camera_ae8450c209a1fb0c3353afebc1c685fe2}{float {\bfseries Get\-Aspect\-Ratio} () const }\label{class_camera_ae8450c209a1fb0c3353afebc1c685fe2}
+
+\item 
+\hypertarget{class_camera_afc9785f9dba5275a092157beb42cdac8}{void {\bfseries Get\-Current\-Camera\-Window\-Size} (int $\ast$w, int $\ast$h) const }\label{class_camera_afc9785f9dba5275a092157beb42cdac8}
+
+\item 
+\hypertarget{class_camera_a578debd1c677a7cd1ce32549599b4f2e}{void {\bfseries Set\-F\-O\-V} (float newfov)}\label{class_camera_a578debd1c677a7cd1ce32549599b4f2e}
+
+\item 
+\hypertarget{class_camera_a2cb176c282c834468b5af22a60f689ec}{float {\bfseries Get\-F\-O\-V} () const }\label{class_camera_a2cb176c282c834468b5af22a60f689ec}
+
+\item 
+\hypertarget{class_camera_af0f738f4962499bb51956e4c675047b1}{void {\bfseries Set\-Depth} (float near, float far)}\label{class_camera_af0f738f4962499bb51956e4c675047b1}
+
+\item 
+\hypertarget{class_camera_a8724d0635baf62345007b7c2bf0efb79}{void {\bfseries Get\-Depth} (float $\ast$near, float $\ast$far) const }\label{class_camera_a8724d0635baf62345007b7c2bf0efb79}
+
+\item 
+\hypertarget{class_camera_a3beb7b2b200f57c556f87b0447d2d201}{virtual glm\-::vec3 {\bfseries Get\-Position} ()=0}\label{class_camera_a3beb7b2b200f57c556f87b0447d2d201}
+
+\item 
+\hypertarget{class_camera_aee7dcbe0dd7727a229f6c8f2d28bed17}{virtual void {\bfseries Update} (float elapsed\-Seconds)=0}\label{class_camera_aee7dcbe0dd7727a229f6c8f2d28bed17}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_camera_a6c30d2ff4b33d5567966efe02ccaaf4c}{Get\-Best\-Monitor\-Size} (int $\ast$w, int $\ast$h)
+\item 
+static const \hyperlink{class_camera}{Camera} $\ast$ \hyperlink{class_camera_a9bcca5c398086a9a81a144181bb26b51}{Get\-Active\-Camera} ()
+\item 
+\hypertarget{class_camera_a6c9d0c83669374cbd4de24c423c4c89f}{static glm\-::vec3 {\bfseries Active\-Camera\-Position} ()}\label{class_camera_a6c9d0c83669374cbd4de24c423c4c89f}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_camera_a43555a0ae83f9ec696ee257e5fd48cf2}{glm\-::mat4 {\bfseries projection}}\label{class_camera_a43555a0ae83f9ec696ee257e5fd48cf2}
+
+\item 
+\hypertarget{class_camera_add93fedd6b9a6a6e2c784aeda624de83}{glm\-::mat4 {\bfseries view}}\label{class_camera_add93fedd6b9a6a6e2c784aeda624de83}
+
+\item 
+\hypertarget{class_camera_a9045e1a5a610020d85b4bb9d63a82ab1}{G\-L\-F\-Wwindow $\ast$ {\bfseries window}}\label{class_camera_a9045e1a5a610020d85b4bb9d63a82ab1}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_camera_a9bcca5c398086a9a81a144181bb26b51}{\index{Camera@{Camera}!Get\-Active\-Camera@{Get\-Active\-Camera}}
+\index{Get\-Active\-Camera@{Get\-Active\-Camera}!Camera@{Camera}}
+\subsubsection[{Get\-Active\-Camera}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Camera} $\ast$ Camera\-::\-Get\-Active\-Camera (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_camera_a9bcca5c398086a9a81a144181bb26b51}
+Gets the active camera. \hypertarget{class_camera_a6c30d2ff4b33d5567966efe02ccaaf4c}{\index{Camera@{Camera}!Get\-Best\-Monitor\-Size@{Get\-Best\-Monitor\-Size}}
+\index{Get\-Best\-Monitor\-Size@{Get\-Best\-Monitor\-Size}!Camera@{Camera}}
+\subsubsection[{Get\-Best\-Monitor\-Size}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-::\-Get\-Best\-Monitor\-Size (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{w, }
+\item[{int $\ast$}]{h}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_camera_a6c30d2ff4b33d5567966efe02ccaaf4c}
+Gets the highest available monitor size for the primary monitor. 
+\begin{DoxyParams}{Parameters}
+{\em w} & The pointer to the int that will store the width. \\
+\hline
+{\em h} & The pointer to the int that will stroe the height. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+C\-:/\-V\-S\-Projects/\-Open\-G\-L\-Game/\-Open\-G\-L\-Game/Camera.\-h\item 
+C\-:/\-V\-S\-Projects/\-Open\-G\-L\-Game/\-Open\-G\-L\-Game/Camera.\-cpp\end{DoxyCompactItemize}
